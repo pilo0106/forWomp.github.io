@@ -68,18 +68,34 @@
   }
 
   /* GIF 容器改為 column-wrap，捲軸不橫向 */
-  #gif-area {
-    flex-direction: row;
-    max-width: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
+  #gif-area{
+  margin: 2rem 0 4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+  /* ↓↓↓ 這兩行若還在，請整段覆蓋後確認移除 ↓↓↓ */
+  /* max-height: 340px;          */
+  /* overflow-y: auto;           */
+}
+  /* 手機：改單欄 100% 寬 */
+	@media (max-width: 600px){
+  #gif-area{
+    flex-direction: column;
+    align-items: center;
+    gap: .8rem;
     padding-inline: 4px;
   }
-  /* 手機優化 */
-    @media(max-width:600px){
-      #gif-area{flex-direction:column;align-items:center;gap:.8rem;padding-inline:4px;}
-      .cat-gif{width:90vw;max-width:90vw;border-radius:14px;}
-    }
+  .cat-gif{
+    width: 100%;
+    max-width: 100%;
+    height: auto;          /* 確保不被裁切 */
+    border-radius: 14px;
+    object-fit: contain;   /* 給寬高都有時才會作用，留著不影響 */
+  }
+}
 
   </style>
 </head>
