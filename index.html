@@ -40,8 +40,9 @@
     .heart::before,.heart::after{content:'';position:absolute;width:14px;height:14px;background:var(--pink-dark);border-radius:50%;}
     .heart::before{top:-7px;left:0;}.heart::after{top:0;left:-7px;}
     @keyframes floatUp{0%{opacity:1;transform:translateY(0) rotate(45deg) scale(1);}100%{opacity:0;transform:translateY(-100vh) rotate(45deg) scale(1.5);}}
-	/* ========= 手機版 (螢幕寬 ≤ 600px) ========= */
-	@media (max-width: 600px) {
+/* ========= 手機版 (螢幕寬 ≤ 600px) ========= */
+@media (max-width: 600px) {
+
   /* 整體字再大一點、行距更鬆 */
   body { line-height: 1.6; }
 
@@ -66,36 +67,24 @@
   /* 祝福語段落增加左右間距 */
   #blessings ul { padding: 0 1rem; }
 
-  /* GIF 區排版：兩欄卡片 */
-  .cat-gif {
-    width: 46%;
-    max-height: 160px;
-  }
-
-  /* GIF 容器改為 column-wrap，捲軸不橫向 */
-  #gif-area{
-  margin: 2rem 0 4rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.2rem;
-  justify-content: center;
-  width: 100%;
-  max-width: 1200px;
-}
-  /* 手機：改單欄 100% 寬 */
-	@media (max-width: 600px){
-  #gif-area{
-    flex-direction: column;
+  /* GIF 容器：改為單欄直排 */
+  #gif-area {
+    margin: 2rem 0 4rem;
+    display: flex;
+    flex-direction: column;   /* 直向排列 */
     align-items: center;
     gap: .8rem;
     padding-inline: 4px;
-  }
-  .cat-gif{
     width: 100%;
-    max-width: 100%;
-    height: auto;          /* 確保不被裁切 */
+  }
+
+  /* 單張 GIF 填滿整行 */
+  .cat-gif {
+    width: 100%;      /* 關鍵：左右不留白 */
+    max-width: 100%;  /* 防止意外縮回去 */
+    height: auto;     /* 保持比例 */
     border-radius: 14px;
-    object-fit: contain;   /* 給寬高都有時才會作用，留著不影響 */
+    object-fit: cover; /* 如想完整鋪滿，可用 cover；要完整顯示就用 contain */
   }
 }
 
