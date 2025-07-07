@@ -181,9 +181,30 @@
 
     function createHeart(){const h=document.createElement('span');h.className='heart';h.style.left=Math.random()*100+'vw';h.style.top='100vh';document.body.appendChild(h);setTimeout(()=>h.remove(),6000);}
 
-    function dropCatGif(){const area=document.getElementById('gif-area');const img=document.createElement('img');img.src=gifs[Math.floor(Math.random()*gifs.length)];img.alt='cat';img.className='cat-gif gacha';area.prepend(img);const s=document.getElementById('gachaSound');s.currentTime=0;s.play();for(let i=0;i<12;i++)createHeart();img.addEventListener('animationend',()=>img.classList.remove('gacha'),{once:true});}
+    function dropCatGif () {
+  const area = document.getElementById('gif-area');
+  const img  = document.createElement('img');
 
-    typeWriterEffect(messages);
+  // 依序取圖
+  img.src = gifs[gifIndex];
+  gifIndex = (gifIndex + 1) % gifs.length;  // 走到最後再從 0 開始
+
+  img.alt  = 'cat';
+  img.className = 'cat-gif gacha';
+  area.prepend(img);
+
+  // 音效
+  const s = document.getElementById('gachaSound');
+  s.currentTime = 0;
+  s.play();
+
+  // 愛心
+  for (let i = 0; i < 12; i++) createHeart();
+
+  // 動畫結束後移除 gacha class
+  img.addEventListener('animationend', () => img.classList.remove('gacha'), { once:true });
+}    
+typeWriterEffect(messages);
   </script>
 </body>
 </html>
