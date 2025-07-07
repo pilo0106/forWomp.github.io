@@ -29,7 +29,12 @@
     .gacha{animation:spinPop 1.2s ease forwards;transform-origin:center center;filter:drop-shadow(0 6px 10px rgba(0,0,0,.15));}
     @keyframes spinPop{0%{transform:scale(0) rotate(0deg);opacity:0;}60%{transform:scale(1.4) rotate(720deg);opacity:1;}100%{transform:scale(1) rotate(720deg);opacity:1;}}
     .cat-gif{max-height:220px;border-radius:18px;box-shadow:0 5px 15px rgba(0,0,0,.15);transition:transform .3s,box-shadow .3s;}
-    .cat-gif:hover{transform:scale(2);box-shadow:0 8px 20px rgba(0,0,0,.25);}
+    @media (hover: hover) and (pointer: fine) {
+  .cat-gif:hover{
+    transform: scale(2); 
+    box-shadow: 0 8px 20px rgba(0,0,0,.25);
+  }
+}
 
     .heart{position:fixed;width:14px;height:14px;background:var(--pink-dark);transform:rotate(45deg);border-radius:2px;animation:floatUp 6s linear forwards;pointer-events:none;z-index:0;}
     .heart::before,.heart::after{content:'';position:absolute;width:14px;height:14px;background:var(--pink-dark);border-radius:50%;}
