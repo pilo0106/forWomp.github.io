@@ -1,115 +1,248 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>生日快樂喵！</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Pacifico&display=swap" rel="stylesheet" />
   <style>
-    body {
-      background: linear-gradient(to bottom, #fff0f5, #ffe4e1);
-      font-family: 'Noto Sans TC', sans-serif;
+    /* ===== 變數 ===== */
+    :root {
+      --pink-light: #ffe4e1;
+      --pink-dark: #ff6f91;
+      --pink-mid: #ffb6b9;
+      --pink-btn-hover: #ff95a3;
+      --text-dark: #444;
+      --white: #ffffff;
+    }
+
+    /* ===== 全域 ===== */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: start;
-      min-height: 100vh;
+    }
+
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      font-family: "Noto Sans TC", sans-serif;
       overflow-x: hidden;
     }
 
-    h1 {
-      margin-top: 1em;
-      color: #ff6f91;
-      font-size: 2.5em;
+    body {
+      background: linear-gradient(to bottom, var(--white) 0%, var(--pink-light) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      position: relative;
     }
 
+    /* ===== 裝飾圖案（貓掌背景）===== */
+    .paw-bg {
+      position: fixed;
+      inset: 0;
+      background-image: url("https://i.imgur.com/pQBjzT7.png"); /* 透過透明 PNG 做貓掌 pattern */
+      background-size: 120px;
+      background-repeat: repeat;
+      opacity: 0.08;
+      pointer-events: none;
+      z-index: 0;
+      animation: scrollBg 60s linear infinite;
+    }
+
+    @keyframes scrollBg {
+      from {
+        background-position: 0 0;
+      }
+      to {
+        background-position: 1000px 1000px;
+      }
+    }
+
+    /* ===== 標題 ===== */
+    h1 {
+      margin-top: 1.2rem;
+      color: var(--pink-dark);
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-family: "Pacifico", cursive;
+      z-index: 1;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    /* ===== 入口貓咪 GIF ===== */
     #cat-entry {
       width: 200px;
-      margin-top: 2em;
-      animation: bounceIn 2s ease-out;
+      margin-top: 2rem;
+      animation: bounceIn 1.6s ease-out;
+      z-index: 1;
     }
 
     @keyframes bounceIn {
-      0% { transform: scale(0); opacity: 0; }
-      60% { transform: scale(1.2); opacity: 1; }
-      100% { transform: scale(1); }
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+      70% {
+        transform: scale(1.2);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1);
+      }
     }
 
+    /* ===== 按鈕 ===== */
     .btn {
-      margin: 2em 1em 1em;
-      padding: 0.8em 1.5em;
-      background-color: #ffb6b9;
-      color: #fff;
+      margin: 2rem 1rem 1rem;
+      padding: 0.9rem 1.8rem;
+      background: linear-gradient(135deg, var(--pink-mid), var(--pink-dark));
+      color: var(--white);
       border: none;
-      border-radius: 30px;
-      font-size: 1.1em;
+      border-radius: 40px;
+      font-size: 1.1rem;
       cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      z-index: 1;
+      position: relative;
+      overflow: hidden;
     }
 
     .btn:hover {
-      background-color: #ff95a3;
-      transform: translateY(-2px);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
     }
 
+    /* ===== 打字機文字 ===== */
+    .typewriter {
+      font-size: 1.25rem;
+      color: var(--text-dark);
+      margin-top: 2rem;
+      text-align: center;
+      min-height: 2.4rem;
+      z-index: 1;
+      white-space: pre-wrap;
+    }
+
+    /* 輸入時的閃爍游標 */
+    .typewriter::after {
+      content: "|";
+      animation: blink 1s steps(1) infinite;
+      margin-left: 4px;
+      color: var(--pink-dark);
+    }
+
+    @keyframes blink {
+      0%, 50% {
+        opacity: 1;
+      }
+      50.01%, 100% {
+        opacity: 0;
+      }
+    }
+
+    /* ===== 猫 GIF 區域 ===== */
     #gif-area {
-      margin: 2em 0;
+      margin: 2rem 0; /* 上下間距 */
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 1em;
+      gap: 1.2rem;
+      z-index: 1;
+      max-width: 1200px;
     }
 
     .cat-gif {
-      height: auto;
-      max-width: 100%;
-      width: auto;
       max-height: 200px;
-      border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
+      border-radius: 18px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s, box-shadow 0.3s;
     }
 
     .cat-gif:hover {
-      transform: scale(1.05);
+      transform: scale(1.06);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
     }
 
-    .typewriter {
-      font-size: 1.3em;
-      color: #444;
-      margin-top: 2em;
-      padding: 0 1em;
-      text-align: center;
-      min-height: 2em;
+    /* ===== 浮動小愛心 ===== */
+    .heart {
+      position: fixed;
+      width: 14px;
+      height: 14px;
+      background: var(--pink-dark);
+      transform: rotate(45deg);
+      border-radius: 2px;
+      animation: floatUp 6s linear forwards;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      background: var(--pink-dark);
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -7px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -7px;
+      top: 0;
+    }
+
+    @keyframes floatUp {
+      0% {
+        opacity: 1;
+        transform: translateY(0) rotate(45deg) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-100vh) rotate(45deg) scale(1.5);
+      }
     }
   </style>
 </head>
 <body>
-  <img id="cat-entry" src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" alt="貓咪打招呼">
+  <!-- 背景裝飾層 -->
+  <div class="paw-bg" aria-hidden="true"></div>
+
+  <!-- 主內容 -->
+  <img id="cat-entry" src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" alt="貓咪打招呼" />
   <h1>喵～生日快樂！</h1>
 
   <div class="typewriter" id="typewriter"></div>
 
-  <button class="btn" onclick="dropCatGif()">點我抽一張可愛貓圖！</button>
+  <button class="btn" id="draw-btn" onclick="dropCatGif()">點我抽一張可愛貓圖！</button>
   <div id="gif-area"></div>
 
   <script>
+    /* ===== 資料 ===== */
     const gifs = [
-      'https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif',
-      'https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif',
-      'https://media.giphy.com/media/ICOgUNjpvO0PC/giphy.gif',
-      'https://media.giphy.com/media/v6aOjy0Qo1fIA/giphy.gif',
-      'https://media.giphy.com/media/12PA1eI8FBqEBa/giphy.gif',
-      'https://media.giphy.com/media/f9k1tV7HyORcngKF8v/giphy.gif',
-      'https://media.giphy.com/media/OmK8lulOMQ9XO/giphy.gif',
-      'https://media.giphy.com/media/l0ExncehJzexFpRHq/giphy.gif',
-      'https://media.giphy.com/media/13borq7Zo2kulO/giphy.gif',
-      'https://media.giphy.com/media/5i7umUqAOYYEw/giphy.gif',
-      'https://media.giphy.com/media/Q56ZI04r6CakM/giphy.gif',
-      'https://media.giphy.com/media/kf9t5PJv8U1Ha/giphy.gif'
+      "https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif",
+      "https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif",
+      "https://media.giphy.com/media/ICOgUNjpvO0PC/giphy.gif",
+      "https://media.giphy.com/media/v6aOjy0Qo1fIA/giphy.gif",
+      "https://media.giphy.com/media/12PA1eI8FBqEBa/giphy.gif",
+      "https://media.giphy.com/media/f9k1tV7HyORcngKF8v/giphy.gif",
+      "https://media.giphy.com/media/OmK8lulOMQ9XO/giphy.gif",
+      "https://media.giphy.com/media/l0ExncehJzexFpRHq/giphy.gif",
+      "https://media.giphy.com/media/13borq7Zo2kulO/giphy.gif",
+      "https://media.giphy.com/media/5i7umUqAOYYEw/giphy.gif",
+      "https://media.giphy.com/media/Q56ZI04r6CakM/giphy.gif",
+      "https://media.giphy.com/media/kf9t5PJv8U1Ha/giphy.gif",
     ];
 
     const messages = [
@@ -117,21 +250,27 @@
       "今天畫圖不卡關喵！",
       "貓咪祝你一直可愛又快樂～",
       "喵～生日快樂，一整年都幸福喵～",
-      "創作的每一天都有我們陪著你 ❤"
+      "創作的每一天都有我們陪著你 ❤",
     ];
 
+    /* ===== 功能 ===== */
     function dropCatGif() {
       const area = document.getElementById("gif-area");
       const gif = document.createElement("img");
       gif.src = gifs[Math.floor(Math.random() * gifs.length)];
+      gif.alt = "可愛貓咪 GIF";
       gif.className = "cat-gif";
       area.appendChild(gif);
+
+      // 觸發若干顆愛心
+      for (let i = 0; i < 8; i++) createHeart();
     }
 
+    // 打字機效果
     function typeWriterEffect(texts, i = 0) {
       const el = document.getElementById("typewriter");
       let charIndex = 0;
-      el.innerHTML = '';
+      el.innerHTML = "";
 
       function type() {
         if (charIndex < texts[i].length) {
@@ -147,6 +286,17 @@
       type();
     }
 
+    // 產生浮動愛心
+    function createHeart() {
+      const heart = document.createElement("span");
+      heart.className = "heart";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.top = 100 + "vh"; // 從底部開始飄
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
+
+    // 初始化
     typeWriterEffect(messages);
   </script>
 </body>
