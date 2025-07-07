@@ -4,299 +4,123 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>生日快樂喵！</title>
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Pacifico&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet" />
   <style>
-    /* ===== 變數 ===== */
-    :root {
-      --pink-light: #ffe4e1;
-      --pink-dark: #ff6f91;
-      --pink-mid: #ffb6b9;
-      --pink-btn-hover: #ff95a3;
-      --text-dark: #444;
-      --white: #ffffff;
-    }
+    :root{--pink-light:#ffe4e1;--pink-mid:#ffb6b9;--pink-dark:#ff6f91;--white:#ffffff;--text-dark:#444;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html,body{height:100%;font-family:"Noto Sans TC",sans-serif;overflow-x:hidden;}
+    body{background:radial-gradient(circle at top,var(--white) 0%,var(--pink-light) 60%);display:flex;flex-direction:column;align-items:center;position:relative;}
 
-    /* ===== 全域 ===== */
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    .paw-bg{position:fixed;inset:0;background-image:url("https://raw.githubusercontent.com/encharm/Font-Awesome-SVG-PNG/master/black/png/64/paw.png");background-size:120px;opacity:0.08;animation:scrollBg 60s linear infinite;pointer-events:none;z-index:0;}
+    @keyframes scrollBg{from{background-position:0 0;}to{background-position:1000px 1000px;}}
 
-    html,
-    body {
-      height: 100%;
-      width: 100%;
-      font-family: "Noto Sans TC", sans-serif;
-      overflow-x: hidden;
-    }
+    h1{margin-top:1.5rem;color:var(--pink-dark);font-size:clamp(2.2rem,6vw,3.4rem);font-weight:700;text-shadow:0 3px 6px rgba(0,0,0,.15);z-index:1;}
+    #cat-entry{width:220px;margin-top:2rem;animation:bounceIn 1.6s ease-out;z-index:1;filter:drop-shadow(0 6px 10px rgba(0,0,0,.15));}
+    @keyframes bounceIn{0%{transform:scale(0);opacity:0;}70%{transform:scale(1.2);opacity:1;}100%{transform:scale(1);}}
 
-    body {
-      background: linear-gradient(to bottom, var(--white) 0%, var(--pink-light) 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      position: relative;
-    }
+    .typewriter{margin-top:2rem;font-size:1.35rem;color:var(--text-dark);min-height:2.4rem;text-align:center;white-space:pre-wrap;z-index:1;}
+    .typewriter::after{content:'|';margin-left:4px;color:var(--pink-dark);animation:blink 1s steps(1) infinite;}
+    @keyframes blink{0%,50%{opacity:1;}50.01%,100%{opacity:0;}}
 
-    /* ===== 裝飾圖案（貓掌背景）===== */
-    .paw-bg {
-      position: fixed;
-      inset: 0;
-      background-image: url("https://i.imgur.com/pQBjzT7.png"); /* 透過透明 PNG 做貓掌 pattern */
-      background-size: 120px;
-      background-repeat: repeat;
-      opacity: 0.08;
-      pointer-events: none;
-      z-index: 0;
-      animation: scrollBg 60s linear infinite;
-    }
+    .btn{margin:2rem 1rem 1rem;padding:0.9rem 1.8rem;font-size:1.1rem;color:#fff;background:linear-gradient(135deg,var(--pink-mid),var(--pink-dark));border:none;border-radius:40px;cursor:pointer;box-shadow:0 6px 12px rgba(0,0,0,.15);transition:transform .25s,box-shadow .25s;z-index:1;position:relative;text-decoration:none;display:inline-block;text-align:center;}
+    .btn:hover{transform:translateY(-4px);box-shadow:0 8px 18px rgba(0,0,0,.2);}
 
-    @keyframes scrollBg {
-      from {
-        background-position: 0 0;
-      }
-      to {
-        background-position: 1000px 1000px;
-      }
-    }
+    #gif-area{margin:2rem 0 4rem;display:flex;flex-wrap:wrap;gap:1.2rem;justify-content:center;max-width:1200px;z-index:1;}
+    .gacha{animation:spinPop 1.2s ease forwards;transform-origin:center center;filter:drop-shadow(0 6px 10px rgba(0,0,0,.15));}
+    @keyframes spinPop{0%{transform:scale(0) rotate(0deg);opacity:0;}60%{transform:scale(1.4) rotate(720deg);opacity:1;}100%{transform:scale(1) rotate(720deg);opacity:1;}}
+    .cat-gif{max-height:220px;border-radius:18px;box-shadow:0 5px 15px rgba(0,0,0,.15);transition:transform .3s,box-shadow .3s;}
+    .cat-gif:hover{transform:scale(1.06);box-shadow:0 8px 20px rgba(0,0,0,.25);}
 
-    /* ===== 標題 ===== */
-    h1 {
-      margin-top: 1.2rem;
-      color: var(--pink-dark);
-      font-size: clamp(1.8rem, 5vw, 3rem);
-      font-family: "Pacifico", cursive;
-      z-index: 1;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    }
-
-    /* ===== 入口貓咪 GIF ===== */
-    #cat-entry {
-      width: 200px;
-      margin-top: 2rem;
-      animation: bounceIn 1.6s ease-out;
-      z-index: 1;
-    }
-
-    @keyframes bounceIn {
-      0% {
-        transform: scale(0);
-        opacity: 0;
-      }
-      70% {
-        transform: scale(1.2);
-        opacity: 1;
-      }
-      100% {
-        transform: scale(1);
-      }
-    }
-
-    /* ===== 按鈕 ===== */
-    .btn {
-      margin: 2rem 1rem 1rem;
-      padding: 0.9rem 1.8rem;
-      background: linear-gradient(135deg, var(--pink-mid), var(--pink-dark));
-      color: var(--white);
-      border: none;
-      border-radius: 40px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-      z-index: 1;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
-    }
-
-    /* ===== 打字機文字 ===== */
-    .typewriter {
-      font-size: 1.25rem;
-      color: var(--text-dark);
-      margin-top: 2rem;
-      text-align: center;
-      min-height: 2.4rem;
-      z-index: 1;
-      white-space: pre-wrap;
-    }
-
-    /* 輸入時的閃爍游標 */
-    .typewriter::after {
-      content: "|";
-      animation: blink 1s steps(1) infinite;
-      margin-left: 4px;
-      color: var(--pink-dark);
-    }
-
-    @keyframes blink {
-      0%, 50% {
-        opacity: 1;
-      }
-      50.01%, 100% {
-        opacity: 0;
-      }
-    }
-
-    /* ===== 猫 GIF 區域 ===== */
-    #gif-area {
-      margin: 2rem 0; /* 上下間距 */
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1.2rem;
-      z-index: 1;
-      max-width: 1200px;
-    }
-
-    .cat-gif {
-      max-height: 200px;
-      border-radius: 18px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .cat-gif:hover {
-      transform: scale(1.06);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-    }
-
-    /* ===== 浮動小愛心 ===== */
-    .heart {
-      position: fixed;
-      width: 14px;
-      height: 14px;
-      background: var(--pink-dark);
-      transform: rotate(45deg);
-      border-radius: 2px;
-      animation: floatUp 6s linear forwards;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .heart::before,
-    .heart::after {
-      content: "";
-      position: absolute;
-      width: 14px;
-      height: 14px;
-      background: var(--pink-dark);
-      border-radius: 50%;
-    }
-
-    .heart::before {
-      top: -7px;
-      left: 0;
-    }
-
-    .heart::after {
-      left: -7px;
-      top: 0;
-    }
-
-    @keyframes floatUp {
-      0% {
-        opacity: 1;
-        transform: translateY(0) rotate(45deg) scale(1);
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(-100vh) rotate(45deg) scale(1.5);
-      }
-    }
+    .heart{position:fixed;width:14px;height:14px;background:var(--pink-dark);transform:rotate(45deg);border-radius:2px;animation:floatUp 6s linear forwards;pointer-events:none;z-index:0;}
+    .heart::before,.heart::after{content:'';position:absolute;width:14px;height:14px;background:var(--pink-dark);border-radius:50%;}
+    .heart::before{top:-7px;left:0;}.heart::after{top:0;left:-7px;}
+    @keyframes floatUp{0%{opacity:1;transform:translateY(0) rotate(45deg) scale(1);}100%{opacity:0;transform:translateY(-100vh) rotate(45deg) scale(1.5);}}
   </style>
 </head>
 <body>
-  <!-- 背景裝飾層 -->
   <div class="paw-bg" aria-hidden="true"></div>
-
-  <!-- 主內容 -->
   <img id="cat-entry" src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" alt="貓咪打招呼" />
   <h1>喵～生日快樂！</h1>
-
   <div class="typewriter" id="typewriter"></div>
+  <!-- 抽 GIF 按鈕 -->
+  <button class="btn" onclick="dropCatGif()">點我！</button>
+  <!-- 轉跳 CatGPT 按鈕（新分頁） -->
+  <a class="btn" href="https://catgpt.wvd.io/#" target="_blank" rel="noopener noreferrer">開啟 CatGPT 🐱</a>
 
-  <button class="btn" id="draw-btn" onclick="dropCatGif()">點我抽一張可愛貓圖！</button>
   <div id="gif-area"></div>
 
+  <audio id="gachaSound" preload="auto" src="https://assets.mixkit.co/sfx/download/mixkit-video-game-mystery-alert-234.wav"></audio>
   <script>
-    /* ===== 資料 ===== */
-    const gifs = [
-      "https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif",
-      "https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif",
-      "https://media.giphy.com/media/ICOgUNjpvO0PC/giphy.gif",
-      "https://media.giphy.com/media/v6aOjy0Qo1fIA/giphy.gif",
-      "https://media.giphy.com/media/12PA1eI8FBqEBa/giphy.gif",
-      "https://media.giphy.com/media/f9k1tV7HyORcngKF8v/giphy.gif",
-      "https://media.giphy.com/media/OmK8lulOMQ9XO/giphy.gif",
-      "https://media.giphy.com/media/l0ExncehJzexFpRHq/giphy.gif",
-      "https://media.giphy.com/media/13borq7Zo2kulO/giphy.gif",
-      "https://media.giphy.com/media/5i7umUqAOYYEw/giphy.gif",
-      "https://media.giphy.com/media/Q56ZI04r6CakM/giphy.gif",
-      "https://media.giphy.com/media/kf9t5PJv8U1Ha/giphy.gif",
-    ];
+    const gifs=['https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif ',
+	'https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif ',
+	'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTVrYmIzN2Y4ZDV5cTB4eXJkYmRlYmE4amg4NHFkNXRpaWd0c2VhbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/MDJ9IbxxvDUQM/giphy.gif',
+	'https://media.giphy.com/media/v6aOjy0Qo1fIA/giphy.gif ',
+	'https://media.giphy.com/media/12PA1eI8FBqEBa/giphy.gif ',
+	'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTVrYmIzN2Y4ZDV5cTB4eXJkYmRlYmE4amg4NHFkNXRpaWd0c2VhbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/VbnUQpnihPSIgIXuZv/giphy.gif',
+	'https://media.giphy.com/media/OmK8lulOMQ9XO/giphy.gif ',
+	'https://media.giphy.com/media/13borq7Zo2kulO/giphy.gif ',
+	'https://media.giphy.com/media/5i7umUqAOYYEw/giphy.gif ',
+	'https://media.giphy.com/media/Q56ZI04r6CakM/giphy.gif ',
+	'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTVrYmIzN2Y4ZDV5cTB4eXJkYmRlYmE4amg4NHFkNXRpaWd0c2VhbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/B7ppUExX92PjW/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTVrYmIzN2Y4ZDV5cTB4eXJkYmRlYmE4amg4NHFkNXRpaWd0c2VhbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/ND6xkVPaj8tHO/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTVrYmIzN2Y4ZDV5cTB4eXJkYmRlYmE4amg4NHFkNXRpaWd0c2VhbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/yFQ0ywscgobJK/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTVrYmIzN2Y4ZDV5cTB4eXJkYmRlYmE4amg4NHFkNXRpaWd0c2VhbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/8vQSQ3cNXuDGo/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTVrYmIzN2Y4ZDV5cTB4eXJkYmRlYmE4amg4NHFkNXRpaWd0c2VhbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/nR4L10XlJcSeQ/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTVrYmIzN2Y4ZDV5cTB4eXJkYmRlYmE4amg4NHFkNXRpaWd0c2VhbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/HMSLfCl5BsXoQ/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3MTY5cG9xdXJ4azc3NzQxcDlyZDFkdHoxaG9yenJzeHV2N3l5ZTJ2MSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/aC45M5Q4D07Pq/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3MTY5cG9xdXJ4azc3NzQxcDlyZDFkdHoxaG9yenJzeHV2N3l5ZTJ2MSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/MWSRkVoNaC30A/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bjZ5aGRlZWR6MGJnbXA0dDYxNTE1YzRsOTM3d2cyOTJvem81ZHZoOCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/Jd5YlXOVTcQtW/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bjZ5aGRlZWR6MGJnbXA0dDYxNTE1YzRsOTM3d2cyOTJvem81ZHZoOCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/iTOS89Y0gD1ny/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bjZ5aGRlZWR6MGJnbXA0dDYxNTE1YzRsOTM3d2cyOTJvem81ZHZoOCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/11s7Ke7jcNxCHS/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bjZ5aGRlZWR6MGJnbXA0dDYxNTE1YzRsOTM3d2cyOTJvem81ZHZoOCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/gwjociZExlDqAJWXgO/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3YTczaXgwM2w2engzcnliMGQwcWZuaXBtc3RhaTRqcnRmamExOXFkciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/zZMTVkTeEfeEg/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3YTczaXgwM2w2engzcnliMGQwcWZuaXBtc3RhaTRqcnRmamExOXFkciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/O51rxo4ununN6/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3YTczaXgwM2w2engzcnliMGQwcWZuaXBtc3RhaTRqcnRmamExOXFkciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/kvkJ2oyhRv7opbr47Y/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3eWVwemFlcWU5amR2emY4amZndXhldjI1aG1wajZsdXA1Mnp0enRlZiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/RccMM7hsUoW4w/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3eWVwemFlcWU5amR2emY4amZndXhldjI1aG1wajZsdXA1Mnp0enRlZiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/tkM2AQZpPCDhC/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3eWVwemFlcWU5amR2emY4amZndXhldjI1aG1wajZsdXA1Mnp0enRlZiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/7flFRHqZHQPULq6HI0/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3eWVwemFlcWU5amR2emY4amZndXhldjI1aG1wajZsdXA1Mnp0enRlZiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/KsLnm50rkhA6A/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3ODBnMnhpenloMmlvZ2tiMDN4eXd5cnJsOWtqM3UxNmVsNXYydjFvZSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/6y0KtNGlTyBRcj8GIy/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3ODBnMnhpenloMmlvZ2tiMDN4eXd5cnJsOWtqM3UxNmVsNXYydjFvZSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/7ztUcJsFqnkWVph2h2/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3ODBnMnhpenloMmlvZ2tiMDN4eXd5cnJsOWtqM3UxNmVsNXYydjFvZSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/jVQTFvl8HbEOI/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3dGpxMWRxaGJicGxqcWljaXR2YnEydnlyOW5wdnRvZmE1aWh4Zmp1eSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/bUcprZ7C95yHC/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3Mzg5N2IzYjQyMTVmbmk1cnQwYWVqb3JkaGw5NWxmbTV1ODdqMHl3eSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/dLTm7bCnbOm1G/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3Y3RhZzcyNHEzbmExNTNheGJrYnY5bWVnNzJiaW84bXE2MW56cndkdCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/5xaOcLT4VhjRfudPcS4/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3djJpYzB1bXF2Z2d1M2RvbWRseWRtNnhmMHhpcjQxczM1eThjcXl4cSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/mbEgX6CUS01cQ/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3MDhhd2N4eDJyZzE0bXJpZ2VibjVxcXpmZzgxZmo4dWN1MmpuYWl6MiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/k2xbaNGSnQkzC/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3YmFldXg1aW9oODd0MHFxMTd2ZnljcDVmOG8zOHVyZm54cThnNTRyMSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/F69JmzpmSaffi/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3eWVwemFlcWU5amR2emY4amZndXhldjI1aG1wajZsdXA1Mnp0enRlZiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/Ib6HtcZMKdPHaBj1R2/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3eWVwemFlcWU5amR2emY4amZndXhldjI1aG1wajZsdXA1Mnp0enRlZiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/hzBc3HCFc0icM/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3Y2Vld3V5d2N6cm5kOGM4NHR5NmE4Z3YzMnA3bDgxNzlmYnQyejlnaiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/l4KibK3JwaVo0CjDO/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3YjU1MnUxNGkydnh0NzJ4ZWkyNDl1MHR1aGNxNTZzcTMwb3VlZDBrNiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/47EstTgsR1vpK/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3YjU1MnUxNGkydnh0NzJ4ZWkyNDl1MHR1aGNxNTZzcTMwb3VlZDBrNiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/tBxyh2hbwMiqc/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3OGthdndvanFjN3lreTV5cnJjc2xmNGFsOThuamRhcDFwMmx6bTB4ZCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/iwoathoVXUWfC/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3a2tjbGd5ZmNsZWNlOHF5bjF6a29lejI2ZzZ3MjN3bTE5andhbWlybSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/6uMqzcbWRhoT6/giphy.gif',
+	'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3dWdtaHpvdjZ4Y2w1aHdmcnA0OXpybGc4NmM5ZDRrc3Rib3NnbTFpcCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/ERy32lxHhXfpu/giphy.gif',
+	' '];
+	let gifIndex = 0; // 依序顯示用
+    const messages=['喵嗚～願你的每一天都像貓咪曬太陽一樣，暖烘烘又慵懶幸福！',
+	'生日快樂！希望好運像貓毛一樣黏在你身上，甩也甩不掉。',
+	'願你在人生的每個轉角，都遇見願意輕聲「喵」一聲陪伴你的溫柔。',
+	'祝福你笑容常在，如同貓咪被摸下巴時的滿足神情。',
+	'無論今天是不是生日，都願幸福像小貓的呼嚕，持續在耳邊低鳴。',
+	'願所有的壓力都像貓跳箱子一樣，輕鬆地「咚」一聲跳出去！',
+	'生日蛋糕吃不完沒關係，把甜蜜留到明天，幸福就能加倍。',
+	'祝你畫圖順利，靈感像貓咪夜視般敏銳，點子源源不絕。',
+	'願你的心情如貓眼石般閃耀，在任何光線下都美麗動人。',
+	'生活再忙，也別忘記像貓一樣伸個大懶腰，給身心一點喘息。',
+	'願你走到哪裡都有人投以貓奴般崇拜的目光。',
+	'今天的你比昨日更閃耀，像剛換毛的貓咪煥然一新。',
+	'祝福健康常伴，讓你像貓咪九條命一樣元氣滿滿。',
+	'願所有夢想都如貓步般優雅且堅定，一步步踏實實現。',
+	'不論晴雨，願你的心永遠柔軟，像貓肚肚一樣溫暖可愛。'];
 
-    const messages = [
-      "祝你靈感爆棚、畫圖順利！",
-      "今天畫圖不卡關喵！",
-      "貓咪祝你一直可愛又快樂～",
-      "喵～生日快樂，一整年都幸福喵～",
-      "創作的每一天都有我們陪著你 ❤",
-    ];
+    function typeWriterEffect(arr,idx=0){const el=document.getElementById('typewriter');let i=0;el.textContent='';(function type(){if(i<arr[idx].length){el.textContent+=arr[idx][i++];setTimeout(type,70);}else{setTimeout(()=>typeWriterEffect(arr,(idx+1)%arr.length),2000);}})();}
 
-    /* ===== 功能 ===== */
-    function dropCatGif() {
-      const area = document.getElementById("gif-area");
-      const gif = document.createElement("img");
-      gif.src = gifs[Math.floor(Math.random() * gifs.length)];
-      gif.alt = "可愛貓咪 GIF";
-      gif.className = "cat-gif";
-      area.appendChild(gif);
+    function createHeart(){const h=document.createElement('span');h.className='heart';h.style.left=Math.random()*100+'vw';h.style.top='100vh';document.body.appendChild(h);setTimeout(()=>h.remove(),6000);}
 
-      // 觸發若干顆愛心
-      for (let i = 0; i < 8; i++) createHeart();
-    }
+    function dropCatGif(){const area=document.getElementById('gif-area');const img=document.createElement('img');img.src=gifs[Math.floor(Math.random()*gifs.length)];img.alt='cat';img.className='cat-gif gacha';area.prepend(img);const s=document.getElementById('gachaSound');s.currentTime=0;s.play();for(let i=0;i<12;i++)createHeart();img.addEventListener('animationend',()=>img.classList.remove('gacha'),{once:true});}
 
-    // 打字機效果
-    function typeWriterEffect(texts, i = 0) {
-      const el = document.getElementById("typewriter");
-      let charIndex = 0;
-      el.innerHTML = "";
-
-      function type() {
-        if (charIndex < texts[i].length) {
-          el.innerHTML += texts[i].charAt(charIndex);
-          charIndex++;
-          setTimeout(type, 70);
-        } else {
-          setTimeout(() => {
-            typeWriterEffect(texts, (i + 1) % texts.length);
-          }, 2000);
-        }
-      }
-      type();
-    }
-
-    // 產生浮動愛心
-    function createHeart() {
-      const heart = document.createElement("span");
-      heart.className = "heart";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.top = 100 + "vh"; // 從底部開始飄
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 6000);
-    }
-
-    // 初始化
     typeWriterEffect(messages);
   </script>
 </body>
