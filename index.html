@@ -35,6 +35,47 @@
     .heart::before,.heart::after{content:'';position:absolute;width:14px;height:14px;background:var(--pink-dark);border-radius:50%;}
     .heart::before{top:-7px;left:0;}.heart::after{top:0;left:-7px;}
     @keyframes floatUp{0%{opacity:1;transform:translateY(0) rotate(45deg) scale(1);}100%{opacity:0;transform:translateY(-100vh) rotate(45deg) scale(1.5);}}
+	/* ========= 手機版 (螢幕寬 ≤ 600px) ========= */
+	@media (max-width: 600px) {
+  /* 整體字再大一點、行距更鬆 */
+  body { line-height: 1.6; }
+
+  /* 標題縮小、不溢出 */
+  h1 { font-size: 2rem; margin-top: 1rem; }
+
+  /* 首圖縮小 */
+  #cat-entry { width: 160px; margin-top: 1rem; }
+
+  /* 文字打字機區縮字 */
+  .typewriter { font-size: 1.1rem; }
+
+  /* 按鈕改為全寬 90%、中央顯示 */
+  .btn {
+    display: block;
+    width: 90%;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* 祝福語段落增加左右間距 */
+  #blessings ul { padding: 0 1rem; }
+
+  /* GIF 區排版：兩欄卡片 */
+  .cat-gif {
+    width: 46%;
+    max-height: 160px;
+  }
+
+  /* GIF 容器改為 column-wrap，捲軸不橫向 */
+  #gif-area {
+    flex-direction: row;
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-inline: 4px;
+  }
+
   </style>
 </head>
 <body>
